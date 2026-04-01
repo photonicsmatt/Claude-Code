@@ -405,7 +405,7 @@ const PLACEMENTS = [
     },
 ];
 
-// === Media Channels ===
+// === Media Channels (4 main channels) ===
 const CHANNELS = [
     {
         id: 'print-ps',
@@ -414,6 +414,13 @@ const CHANNELS = [
         description: 'The industry\'s flagship publication. 59 years in print covering lasers, optics, spectroscopy, imaging, and more.',
         stats: ['100,000 subscribers', '12 issues/year'],
         color: '#c8102e',
+        sections: [
+            { label: 'Magazine', categories: ['print-ps'] },
+            { label: 'Newsletters', categories: ['newsletter'] },
+            { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Webinars', categories: ['webinar'] },
+            { label: 'White Papers & Content', categories: ['content'] },
+        ],
     },
     {
         id: 'print-bp',
@@ -422,6 +429,13 @@ const CHANNELS = [
         description: 'The only stand-alone publication covering light in the life sciences — microscopy, spectroscopy, and diagnostics.',
         stats: ['27,500 subscribers', '6 issues/year'],
         color: '#7ab648',
+        sections: [
+            { label: 'Magazine', categories: ['print-bp'] },
+            { label: 'Newsletters', categories: ['newsletter'] },
+            { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Webinars', categories: ['webinar'] },
+            { label: 'White Papers & Content', categories: ['content'] },
+        ],
     },
     {
         id: 'print-vs',
@@ -430,6 +444,13 @@ const CHANNELS = [
         description: 'Machine vision, embedded vision, and Industry 4.0 — for systems integrators, designers, and end users.',
         stats: ['32,000 subscribers', '4 issues/year'],
         color: '#f09000',
+        sections: [
+            { label: 'Magazine', categories: ['print-vs'] },
+            { label: 'Newsletters', categories: ['newsletter'] },
+            { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Webinars', categories: ['webinar'] },
+            { label: 'White Papers & Content', categories: ['content'] },
+        ],
     },
     {
         id: 'marketplace',
@@ -438,46 +459,9 @@ const CHANNELS = [
         description: 'The largest online directory for photonics buyers. Showcase your products, services, and expertise year-round.',
         stats: ['270,000 annual visitors', '4,200+ products'],
         color: '#00a6a0',
-    },
-    {
-        id: 'event',
-        name: 'Virtual Events & Trade Shows',
-        logo: 'logos/events-logo.png',
-        description: 'Virtual summits, trade show sneak previews, and event sponsorships reaching thousands of engaged professionals.',
-        stats: ['17 summits in 2026', '545 avg registrants'],
-        color: '#8b1a2b',
-    },
-    {
-        id: 'newsletter',
-        name: 'Newsletters',
-        logo: 'logos/newsletters.png',
-        description: '4 targeted newsletters reaching 85,000+ subscribers. Featured products, video, and banner advertising.',
-        stats: ['85,152 subscribers', '4 newsletters'],
-        color: '#6b3fa0',
-    },
-    {
-        id: 'digital',
-        name: 'Photonics.com Website',
-        logo: 'logos/websites.png',
-        description: 'Full-spectrum digital campaign across Photonics.com with keyword targeting and premium homepage placement.',
-        stats: ['2.3M page views/yr', '76,768 monthly users'],
-        color: '#0077cc',
-    },
-    {
-        id: 'webinar',
-        name: 'Webinars',
-        logo: 'logos/webinars.png',
-        description: 'Sponsor editorial or custom webinars for lead generation, thought leadership, and brand awareness.',
-        stats: ['253 avg leads (editorial)', '220 avg leads (custom)'],
-        color: '#e8702a',
-    },
-    {
-        id: 'content',
-        name: 'Content & Video',
-        logo: 'logos/podcast.png',
-        description: 'Podcast sponsorships, white paper promotions, video production, and Photonics Spectra Now newscast sponsorship.',
-        stats: ['Award-winning podcast', '20,000 email reach'],
-        color: '#009e96',
+        sections: [
+            { label: 'Exhibitor Packages', categories: ['marketplace'] },
+        ],
     },
 ];
 
@@ -491,14 +475,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setupForm();
 });
 
+// === Get all placement categories for a channel ===
+function getChannelCategories(ch) {
+    const cats = new Set();
+    ch.sections.forEach(s => s.categories.forEach(c => cats.add(c)));
+    return cats;
+}
+
 // === Render Channel Cards ===
 function renderChannels() {
     const grid = document.getElementById('channelsGrid');
     grid.innerHTML = CHANNELS.map(ch => {
-        const placementCount = PLACEMENTS.filter(p => p.category === ch.id).length;
+        const cats = getChannelCategories(ch);
+        const allPlacements = PLACEMENTS.filter(p => cats.has(p.category));
+        const placementCount = allPlacements.length;
         const itemsInCampaign = campaign.filter(c => {
             const p = PLACEMENTS.find(pl => pl.id === c.placementId);
-            return p && p.category === ch.id;
+            return p && cats.has(p.category);
         }).length;
         const badgeHtml = itemsInCampaign > 0
             ? `<span class="channel-campaign-badge">${itemsInCampaign} in campaign</span>`
@@ -514,7 +507,7 @@ function renderChannels() {
                     ${ch.stats.map(s => `<span>${escapeHtml(s)}</span>`).join('')}
                 </div>
                 <div class="channel-footer">
-                    <span class="channel-count">${placementCount} ad option${placementCount !== 1 ? 's' : ''}</span>
+                    <span class="channel-count">${ch.sections.map(s => s.label).join(' / ')}</span>
                     ${badgeHtml}
                     <span class="channel-arrow">&#8594;</span>
                 </div>
@@ -529,12 +522,10 @@ function openChannel(channelId) {
     const ch = CHANNELS.find(c => c.id === channelId);
     if (!ch) return;
 
-    // Hide channels, show detail
     document.getElementById('channels').style.display = 'none';
     const detail = document.getElementById('channelDetail');
     detail.style.display = 'block';
 
-    // Render header
     document.getElementById('channelDetailHeader').innerHTML = `
         <div class="detail-header-content">
             <img src="${ch.logo}" alt="${escapeHtml(ch.name)}" class="detail-logo">
@@ -547,11 +538,54 @@ function openChannel(channelId) {
         </div>
     `;
 
-    // Render placements for this channel
-    renderPlacements(channelId);
-
-    // Scroll to detail
+    renderChannelSections(ch);
     detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// === Render grouped sections within a channel ===
+function renderChannelSections(ch) {
+    const grid = document.getElementById('placementsGrid');
+
+    grid.innerHTML = ch.sections.map(section => {
+        const sectionPlacements = PLACEMENTS.filter(p =>
+            section.categories.includes(p.category)
+        );
+        if (sectionPlacements.length === 0) return '';
+
+        const cardsHtml = sectionPlacements.map(p => {
+            const inCampaign = campaign.some(c => c.placementId === p.id);
+            const specsHtml = Object.entries(p.specs)
+                .map(([k, v]) => `<span><strong>${escapeHtml(k)}:</strong> ${escapeHtml(String(v))}</span>`)
+                .join('');
+            const prices = Object.values(p.pricing);
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+            let priceHtml;
+            if (prices.length > 1) {
+                priceHtml = `<span class="from-label">From </span>$${minPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
+            } else {
+                priceHtml = `$${maxPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
+            }
+            return `
+                <div class="placement-card ${inCampaign ? 'added' : ''}">
+                    <h3>${escapeHtml(p.name)}</h3>
+                    <p class="description">${escapeHtml(p.description)}</p>
+                    <div class="placement-specs">${specsHtml}</div>
+                    <div class="placement-price">${priceHtml}</div>
+                    <button class="btn ${inCampaign ? 'btn-added' : 'btn-outline'}" onclick="togglePlacement('${p.id}')">
+                        ${inCampaign ? 'Added to Campaign' : 'Add to Campaign'}
+                    </button>
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="section-group">
+                <h3 class="section-group-title">${escapeHtml(section.label)}</h3>
+                <div class="section-group-grid">${cardsHtml}</div>
+            </div>
+        `;
+    }).join('');
 }
 
 // === Back to Channels ===
@@ -561,42 +595,6 @@ function showChannels() {
     document.getElementById('channels').style.display = 'block';
     renderChannels(); // refresh campaign badges
     document.getElementById('channels').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-// === Render Placement Cards ===
-function renderPlacements(filter) {
-    const grid = document.getElementById('placementsGrid');
-    const filtered = PLACEMENTS.filter(p => p.category === filter);
-
-    grid.innerHTML = filtered.map(p => {
-        const inCampaign = campaign.some(c => c.placementId === p.id);
-
-        const specsHtml = Object.entries(p.specs)
-            .map(([k, v]) => `<span><strong>${escapeHtml(k)}:</strong> ${escapeHtml(String(v))}</span>`)
-            .join('');
-
-        const prices = Object.values(p.pricing);
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-        let priceHtml;
-        if (prices.length > 1) {
-            priceHtml = `<span class="from-label">From </span>$${minPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
-        } else {
-            priceHtml = `$${maxPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
-        }
-
-        return `
-            <div class="placement-card ${inCampaign ? 'added' : ''}">
-                <h3>${escapeHtml(p.name)}</h3>
-                <p class="description">${escapeHtml(p.description)}</p>
-                <div class="placement-specs">${specsHtml}</div>
-                <div class="placement-price">${priceHtml}</div>
-                <button class="btn ${inCampaign ? 'btn-added' : 'btn-outline'}" onclick="togglePlacement('${p.id}')">
-                    ${inCampaign ? 'Added to Campaign' : 'Add to Campaign'}
-                </button>
-            </div>
-        `;
-    }).join('');
 }
 
 // === Toggle Placement ===
@@ -623,7 +621,8 @@ function removePlacement(placementId) {
 
 function refreshAll() {
     if (currentChannel) {
-        renderPlacements(currentChannel);
+        const ch = CHANNELS.find(c => c.id === currentChannel);
+        if (ch) renderChannelSections(ch);
     }
     renderCampaignItems();
     renderSummary();
