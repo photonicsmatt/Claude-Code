@@ -12,12 +12,13 @@ const CATEGORY_LOGOS = {
     'digital': 'logos/websites.png',
     'webinar': 'logos/webinars.png',
     'event': 'logos/events-logo.png',
+    'sneak': 'logos/events-logo.png',
     'content': 'logos/podcast.png',
     'marketplace': 'logos/marketplace-logo.png',
 };
 
 // Categories eligible for 25% print advertiser discount (page 25 rates)
-const PRINT_DISCOUNT_CATEGORIES = new Set(['newsletter', 'digital', 'webinar', 'event', 'content']);
+const PRINT_DISCOUNT_CATEGORIES = new Set(['newsletter', 'digital', 'webinar', 'event', 'sneak', 'content']);
 const PRINT_DISCOUNT_PERCENT = 25;
 
 // Categories that qualify a client as a "print advertiser"
@@ -262,8 +263,8 @@ const PLACEMENTS = [
     {
         id: 'sneak-leaderboard',
         name: 'Trade Show Sneak Preview — Leaderboard & Third Unit',
-        category: 'event',
-        categoryLabel: 'Virtual Event',
+        category: 'sneak',
+        categoryLabel: 'Sneak Preview',
         description: 'Premium leaderboard banner plus third-position exhibitor listing in our Trade Show Sneak Preview newsletters (SPIE Photonics West, CLEO, OFC, VISION, and more). 40,000 circulation.',
         specs: { Circulation: '40,000', Position: 'Leaderboard + 3rd', Shows: '8 events in 2026' },
         pricing: { '1x': 3885 },
@@ -273,8 +274,8 @@ const PLACEMENTS = [
     {
         id: 'sneak-top',
         name: 'Trade Show Sneak Preview — Top Unit',
-        category: 'event',
-        categoryLabel: 'Virtual Event',
+        category: 'sneak',
+        categoryLabel: 'Sneak Preview',
         description: 'Top-position exhibitor listing in our Trade Show Sneak Preview newsletters. Maximum visibility below the leaderboard. 40,000 circulation across 8 major trade shows.',
         specs: { Circulation: '40,000', Position: 'Top', Shows: '8 events in 2026' },
         pricing: { '1x': 3345 },
@@ -284,8 +285,8 @@ const PLACEMENTS = [
     {
         id: 'sneak-second',
         name: 'Trade Show Sneak Preview — Second Unit',
-        category: 'event',
-        categoryLabel: 'Virtual Event',
+        category: 'sneak',
+        categoryLabel: 'Sneak Preview',
         description: 'Second-position exhibitor listing in our Trade Show Sneak Preview newsletters. Strong visibility in the upper half of the newsletter. 40,000 circulation.',
         specs: { Circulation: '40,000', Position: 'Second', Shows: '8 events in 2026' },
         pricing: { '1x': 3005 },
@@ -295,8 +296,8 @@ const PLACEMENTS = [
     {
         id: 'sneak-standard',
         name: 'Trade Show Sneak Preview — Standard Unit',
-        category: 'event',
-        categoryLabel: 'Virtual Event',
+        category: 'sneak',
+        categoryLabel: 'Sneak Preview',
         description: 'Standard exhibitor listing in our Trade Show Sneak Preview newsletters. Promote your booth presence to 40,000 targeted professionals before major shows.',
         specs: { Circulation: '40,000', Position: 'Standard', Shows: '8 events in 2026' },
         pricing: { '1x': 2685 },
@@ -436,6 +437,7 @@ const CHANNELS = [
             { label: 'Magazine', categories: ['print-ps'] },
             { label: 'Newsletters', categories: ['newsletter'] },
             { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Trade Show Sneak Previews', categories: ['sneak'] },
             { label: 'Webinars', categories: ['webinar'] },
             { label: 'White Papers & Content', categories: ['content'] },
         ],
@@ -451,6 +453,7 @@ const CHANNELS = [
             { label: 'Magazine', categories: ['print-bp'] },
             { label: 'Newsletters', categories: ['newsletter'] },
             { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Trade Show Sneak Previews', categories: ['sneak'] },
             { label: 'Webinars', categories: ['webinar'] },
             { label: 'White Papers & Content', categories: ['content'] },
         ],
@@ -466,6 +469,7 @@ const CHANNELS = [
             { label: 'Magazine', categories: ['print-vs'] },
             { label: 'Newsletters', categories: ['newsletter'] },
             { label: 'Virtual Summits', categories: ['event'] },
+            { label: 'Trade Show Sneak Previews', categories: ['sneak'] },
             { label: 'Webinars', categories: ['webinar'] },
             { label: 'White Papers & Content', categories: ['content'] },
         ],
