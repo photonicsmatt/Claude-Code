@@ -483,8 +483,25 @@ nav a:hover { color: var(--color-primary); }
     font-size: 0.75rem;
     color: var(--color-accent);
     font-weight: 500;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     font-style: italic;
+}
+
+.discount-highlight {
+    color: var(--color-success);
+    font-weight: 600;
+    font-style: normal;
+}
+
+.discount-note:last-of-type {
+    margin-bottom: 12px;
+}
+
+.campaign-discount-badge {
+    font-size: 0.7rem;
+    color: var(--color-success);
+    font-weight: 600;
+    margin-top: 4px;
 }
 
 .placement-card .btn { align-self: stretch; text-align: center; }
