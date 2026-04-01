@@ -16,6 +16,13 @@ const CATEGORY_LOGOS = {
     'marketplace': 'logos/marketplace-logo.png',
 };
 
+// Categories eligible for 25% print advertiser discount (page 25 rates)
+const PRINT_DISCOUNT_CATEGORIES = new Set(['newsletter', 'digital', 'webinar', 'event', 'content']);
+const PRINT_DISCOUNT_PERCENT = 25;
+
+// Categories that qualify a client as a "print advertiser"
+const PRINT_QUALIFIER_CATEGORIES = new Set(['print-ps', 'print-bp', 'print-vs', 'marketplace']);
+
 const PLACEMENTS = [
     // ── PHOTONICS SPECTRA (Print) ──
     {
@@ -557,20 +564,34 @@ function renderChannelSections(ch) {
             const specsHtml = Object.entries(p.specs)
                 .map(([k, v]) => `<span><strong>${escapeHtml(k)}:</strong> ${escapeHtml(String(v))}</span>`)
                 .join('');
-            const prices = Object.values(p.pricing);
             const basePrice = p.pricing['1x'] || Object.values(p.pricing)[0];
-            const hasDiscount = Object.keys(p.pricing).length > 1;
-            const priceHtml = `$${basePrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
-            const discountNote = hasDiscount
-                ? `<div class="discount-note">Frequency discounts available</div>`
-                : '';
+            const hasFreqDiscount = Object.keys(p.pricing).length > 1;
+            const isPrintDiscountEligible = PRINT_DISCOUNT_CATEGORIES.has(p.category);
+            const discountedPrice = isPrintDiscountEligible
+                ? Math.round(basePrice * (1 - PRINT_DISCOUNT_PERCENT / 100))
+                : null;
+
+            let priceHtml;
+            if (isPrintDiscountEligible) {
+                priceHtml = `$${basePrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
+            } else {
+                priceHtml = `$${basePrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
+            }
+
+            let notesHtml = '';
+            if (isPrintDiscountEligible) {
+                notesHtml += `<div class="discount-note discount-highlight">$${discountedPrice.toLocaleString()} with print advertiser discount (${PRINT_DISCOUNT_PERCENT}% off)</div>`;
+            }
+            if (hasFreqDiscount) {
+                notesHtml += `<div class="discount-note">Frequency discounts available</div>`;
+            }
             return `
                 <div class="placement-card ${inCampaign ? 'added' : ''}">
                     <h3>${escapeHtml(p.name)}</h3>
                     <p class="description">${escapeHtml(p.description)}</p>
                     <div class="placement-specs">${specsHtml}</div>
                     <div class="placement-price">${priceHtml}</div>
-                    ${discountNote}
+                    ${notesHtml}
                     <button class="btn ${inCampaign ? 'btn-added' : 'btn-outline'}" onclick="togglePlacement('${p.id}')">
                         ${inCampaign ? 'Added to Campaign' : 'Add to Campaign'}
                     </button>
@@ -629,8 +650,20 @@ function refreshAll() {
 }
 
 // === Get price for a campaign item ===
+// Check if campaign contains a print/marketplace ad (qualifies for 25% discount)
+function hasPrintQualifier() {
+    return campaign.some(c => {
+        const p = PLACEMENTS.find(pl => pl.id === c.placementId);
+        return p && PRINT_QUALIFIER_CATEGORIES.has(p.category);
+    });
+}
+
 function getItemPrice(p, item) {
-    return p.pricing[item.frequency] || Object.values(p.pricing)[0];
+    let price = p.pricing[item.frequency] || Object.values(p.pricing)[0];
+    if (PRINT_DISCOUNT_CATEGORIES.has(p.category) && hasPrintQualifier()) {
+        price = Math.round(price * (1 - PRINT_DISCOUNT_PERCENT / 100));
+    }
+    return price;
 }
 
 // === Render Campaign Items ===
@@ -686,6 +719,7 @@ function renderCampaignItems() {
                 </div>
                 <div class="campaign-item-subtotal">
                     <div class="amount">$${subtotal.toLocaleString()}</div>
+                    ${PRINT_DISCOUNT_CATEGORIES.has(p.category) && hasPrintQualifier() ? '<div class="campaign-discount-badge">25% print discount applied</div>' : ''}
                     <button class="btn btn-danger btn-sm remove-btn" onclick="removePlacement('${p.id}')">Remove</button>
                 </div>
             </div>
