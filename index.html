@@ -10,12 +10,12 @@
     <!-- Header -->
     <header class="site-header">
         <div class="container header-inner">
-            <div class="logo">
+            <a href="#" class="logo" onclick="showChannels(); return false;">
                 <img src="logos/marketing-solutions.png" alt="Photonics Media Marketing Solutions" class="logo-img">
-            </div>
+            </a>
             <nav>
-                <a href="#placements">Ad Placements</a>
-                <a href="#builder">Build Campaign</a>
+                <a href="#channels">Media Channels</a>
+                <a href="#builder">Your Campaign</a>
                 <a href="#summary">Summary</a>
             </nav>
         </div>
@@ -27,8 +27,8 @@
             <div class="hero-text">
                 <p class="hero-eyebrow">2026 Multimedia Planner</p>
                 <h1>Build Your Advertising Campaign</h1>
-                <p class="hero-sub">Simple marketing for complex technology. Select from our full range of print, digital, and event advertising — then submit your plan for review.</p>
-                <a href="#placements" class="btn btn-hero">View Ad Placements</a>
+                <p class="hero-sub">Simple marketing for complex technology. Choose a media channel to explore available ad placements, build your plan, and submit for review.</p>
+                <a href="#channels" class="btn btn-hero">Explore Media Channels</a>
             </div>
             <div class="hero-stats">
                 <div class="stat-card">
@@ -51,25 +51,24 @@
         </div>
     </section>
 
-    <!-- Ad Placements / Media Kit -->
-    <section id="placements" class="section">
+    <!-- Media Channels (main view) -->
+    <section id="channels" class="section">
         <div class="container">
-            <h2>Available Ad Placements</h2>
-            <p class="section-subtitle">Browse our 2026 media kit inventory. Click <strong>Add to Campaign</strong> to start building your plan.</p>
-
-            <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="print-ps">Photonics Spectra</button>
-                <button class="filter-btn" data-filter="print-bp">BioPhotonics</button>
-                <button class="filter-btn" data-filter="print-vs">Vision Spectra</button>
-                <button class="filter-btn" data-filter="newsletter">Newsletters</button>
-                <button class="filter-btn" data-filter="digital">Digital</button>
-                <button class="filter-btn" data-filter="webinar">Webinars</button>
-                <button class="filter-btn" data-filter="event">Events</button>
-                <button class="filter-btn" data-filter="content">Content &amp; Video</button>
-                <button class="filter-btn" data-filter="marketplace">Marketplace</button>
+            <h2>Choose a Media Channel</h2>
+            <p class="section-subtitle">Select a channel to see available ad placements and pricing.</p>
+            <div class="channels-grid" id="channelsGrid">
+                <!-- Populated by JS -->
             </div>
+        </div>
+    </section>
 
+    <!-- Channel Detail (hidden by default) -->
+    <section id="channelDetail" class="section section-alt" style="display:none;">
+        <div class="container">
+            <button class="btn-back" onclick="showChannels()">&#8592; Back to All Channels</button>
+            <div class="channel-detail-header" id="channelDetailHeader">
+                <!-- Populated by JS -->
+            </div>
             <div class="placements-grid" id="placementsGrid">
                 <!-- Populated by JS -->
             </div>
@@ -77,14 +76,14 @@
     </section>
 
     <!-- Campaign Builder -->
-    <section id="builder" class="section section-alt">
+    <section id="builder" class="section">
         <div class="container">
             <h2>Your Campaign</h2>
             <p class="section-subtitle">Configure each placement in your campaign below.</p>
 
             <div id="emptyState" class="empty-state">
                 <div class="empty-icon">+</div>
-                <p>Your campaign is empty. Add placements from the media kit above to get started.</p>
+                <p>Your campaign is empty. Choose a media channel above and add placements to get started.</p>
             </div>
 
             <div id="campaignItems" class="campaign-items">
@@ -94,7 +93,7 @@
     </section>
 
     <!-- Summary & Submit -->
-    <section id="summary" class="section">
+    <section id="summary" class="section section-alt">
         <div class="container">
             <h2>Campaign Summary</h2>
             <div class="summary-layout">
