@@ -5,15 +5,15 @@
 
 // Logo mapping by category
 const CATEGORY_LOGOS = {
-    'print-ps': 'logos/photonics-spectra.png',
-    'print-bp': 'logos/biophotonics.png',
-    'print-vs': 'logos/vision-spectra.png',
+    'print-ps': 'logos/photonics-spectra-logo.png',
+    'print-bp': 'logos/biophotonics-logo.png',
+    'print-vs': 'logos/vision-spectra-logo.png',
     'newsletter': 'logos/newsletters.png',
     'digital': 'logos/websites.png',
     'webinar': 'logos/webinars.png',
-    'event': 'logos/virtual-events.png',
+    'event': 'logos/events-logo.png',
     'content': 'logos/podcast.png',
-    'marketplace': 'logos/marketplace.png',
+    'marketplace': 'logos/marketplace-logo.png',
 };
 
 const PLACEMENTS = [
