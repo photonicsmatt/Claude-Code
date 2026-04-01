@@ -247,23 +247,12 @@ const PLACEMENTS = [
 
     // ── VIRTUAL EVENTS ──
     {
-        id: 'event-track',
-        name: 'Virtual Summit — Track Sponsorship',
-        category: 'event',
-        categoryLabel: 'Virtual Event',
-        description: 'Sponsor a track at one of our 17 virtual summits in 2026 (Optical Fabrication, Raman Spectroscopy, Ultrafast Lasers, Quantum, and more). Includes full registrant contact info, logo placement, featured content, and social promotion. Avg 545 registrants/event.',
-        specs: { 'Avg Registrants': '545', Includes: 'Full lead access + logo + social' },
-        pricing: { '1x': 7510 },
-        unit: 'sponsorship',
-        hasFrequency: false,
-    },
-    {
         id: 'event-summit',
-        name: 'Virtual Summit — Summit Sponsorship',
+        name: 'Virtual Summit Sponsorship',
         category: 'event',
         categoryLabel: 'Virtual Event',
-        description: 'Full summit-level sponsorship at one of our 17 virtual summits. Maximum visibility with logo on all event pages, promotional emails, social media, and featured sponsor profile. Avg 545 registrants/event.',
-        specs: { 'Avg Registrants': '545', Includes: 'Full lead access + logo + social + featured profile' },
+        description: 'Sponsor one of our 17 virtual summits in 2026 (Optical Fabrication, Raman Spectroscopy, Ultrafast Lasers, Quantum, and more). Includes full registrant contact info, logo placement on event pages and promotional emails, featured video/product/service on your sponsor profile, and social media promotion. Avg 545 registrants/event.',
+        specs: { 'Avg Registrants': '545', Includes: 'Full lead access + logo + social', Events: '17 in 2026' },
         pricing: { '1x': 7510 },
         unit: 'sponsorship',
         hasFrequency: false,
