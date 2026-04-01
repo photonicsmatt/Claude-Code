@@ -3,6 +3,19 @@
 // All data sourced from the 2026 Multimedia Planner (Media Kit)
 // =============================================================
 
+// Logo mapping by category
+const CATEGORY_LOGOS = {
+    'print-ps': 'logos/photonics-spectra.png',
+    'print-bp': 'logos/biophotonics.png',
+    'print-vs': 'logos/vision-spectra.png',
+    'newsletter': 'logos/newsletters.png',
+    'digital': 'logos/websites.png',
+    'webinar': 'logos/webinars.png',
+    'event': 'logos/virtual-events.png',
+    'content': 'logos/podcast.png',
+    'marketplace': 'logos/marketplace.png',
+};
+
 const PLACEMENTS = [
     // ── PHOTONICS SPECTRA (Print) ──
     {
@@ -426,8 +439,11 @@ function renderPlacements(filter) {
             priceHtml = `$${maxPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
         }
 
+        const logoSrc = CATEGORY_LOGOS[p.category] || '';
+
         return `
             <div class="placement-card ${inCampaign ? 'added' : ''}" data-id="${p.id}">
+                ${logoSrc ? `<div class="placement-logo"><img src="${logoSrc}" alt="${escapeHtml(p.categoryLabel)}"></div>` : ''}
                 <span class="placement-badge ${badgeClass}">${escapeHtml(p.categoryLabel)}</span>
                 <h3>${escapeHtml(p.name)}</h3>
                 <p class="description">${escapeHtml(p.description)}</p>
