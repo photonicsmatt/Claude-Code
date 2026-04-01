@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photonics Media — Self-Service Ad Campaign Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">Photonics<span>Media</span></div>
+            <nav>
+                <a href="#placements">Ad Placements</a>
+                <a href="#builder">Build Campaign</a>
+                <a href="#summary">Summary</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>Build Your Advertising Campaign</h1>
+            <p>Select from our premium ad placements, set your schedule, and submit your plan — all in one place.</p>
+            <a href="#placements" class="btn btn-primary">View Ad Placements</a>
+        </div>
+    </section>
+
+    <!-- Ad Placements / Media Kit -->
+    <section id="placements" class="section">
+        <div class="container">
+            <h2>Available Ad Placements</h2>
+            <p class="section-subtitle">Browse our inventory and click <strong>Add to Campaign</strong> to start building your plan.</p>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="display">Display</button>
+                <button class="filter-btn" data-filter="sponsored">Sponsored Content</button>
+                <button class="filter-btn" data-filter="newsletter">Newsletter</button>
+                <button class="filter-btn" data-filter="social">Social</button>
+            </div>
+
+            <div class="placements-grid" id="placementsGrid">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Campaign Builder -->
+    <section id="builder" class="section section-alt">
+        <div class="container">
+            <h2>Your Campaign</h2>
+            <p class="section-subtitle">Configure each placement in your campaign below.</p>
+
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">+</div>
+                <p>Your campaign is empty. Add placements from the media kit above to get started.</p>
+            </div>
+
+            <div id="campaignItems" class="campaign-items">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Summary & Submit -->
+    <section id="summary" class="section">
+        <div class="container">
+            <h2>Campaign Summary</h2>
+            <div class="summary-layout">
+                <div class="summary-card" id="summaryCard">
+                    <div id="summaryEmpty" class="summary-empty">
+                        <p>Add placements to see your campaign summary.</p>
+                    </div>
+                    <div id="summaryContent" class="summary-content" style="display:none;">
+                        <table class="summary-table">
+                            <thead>
+                                <tr>
+                                    <th>Placement</th>
+                                    <th>Duration</th>
+                                    <th>Qty</th>
+                                    <th class="text-right">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="summaryBody">
+                            </tbody>
+                            <tfoot>
+                                <tr class="total-row">
+                                    <td colspan="3"><strong>Estimated Total</strong></td>
+                                    <td class="text-right"><strong id="totalCost">$0</strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="submit-card" id="submitCard">
+                    <h3>Submit Your Campaign for Review</h3>
+                    <form id="submitForm">
+                        <div class="form-group">
+                            <label for="contactName">Full Name *</label>
+                            <input type="text" id="contactName" required placeholder="Jane Smith">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email *</label>
+                            <input type="email" id="contactEmail" required placeholder="jane@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactCompany">Company *</label>
+                            <input type="text" id="contactCompany" required placeholder="Acme Corp">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone</label>
+                            <input type="tel" id="contactPhone" placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactNotes">Additional Notes</label>
+                            <textarea id="contactNotes" rows="3" placeholder="Any special requirements or questions..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="submitBtn" disabled>
+                            Submit Campaign for Review
+                        </button>
+                        <p class="form-hint">Our ad sales team will review your plan and follow up within 1 business day.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmationModal">
+        <div class="modal">
+            <div class="modal-icon">&#10003;</div>
+            <h3>Campaign Submitted!</h3>
+            <p>Thanks, <span id="confirmName"></span>. We've received your campaign plan and our team will be in touch at <strong id="confirmEmail"></strong> within 1 business day.</p>
+            <button class="btn btn-primary" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 Photonics Media. All rights reserved. | <a href="#">Media Kit PDF</a> | <a href="#">Contact Sales</a></p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
