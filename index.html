@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photonics Media — Self-Service Ad Campaign Builder</title>
+    <title>Photonics Media — 2026 Self-Service Campaign Builder</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Header -->
     <header class="site-header">
         <div class="container header-inner">
-            <div class="logo">Photonics<span>Media</span></div>
+            <div class="logo">
+                <span class="logo-photonics">PHOTONICS</span><span class="logo-media">MEDIA</span>
+                <span class="logo-dot">photonics.com</span>
+            </div>
             <nav>
                 <a href="#placements">Ad Placements</a>
                 <a href="#builder">Build Campaign</a>
@@ -21,10 +24,31 @@
 
     <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <h1>Build Your Advertising Campaign</h1>
-            <p>Select from our premium ad placements, set your schedule, and submit your plan — all in one place.</p>
-            <a href="#placements" class="btn btn-primary">View Ad Placements</a>
+        <div class="container hero-content">
+            <div class="hero-text">
+                <p class="hero-eyebrow">2026 Multimedia Planner</p>
+                <h1>Build Your Advertising Campaign</h1>
+                <p class="hero-sub">Simple marketing for complex technology. Select from our full range of print, digital, and event advertising — then submit your plan for review.</p>
+                <a href="#placements" class="btn btn-hero">View Ad Placements</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">159,500</div>
+                    <div class="stat-label">Magazine Subscribers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">85,152</div>
+                    <div class="stat-label">E-Newsletter Subscribers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">117,272</div>
+                    <div class="stat-label">Web Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">76,768</div>
+                    <div class="stat-label">Avg. Monthly Website Users</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -32,14 +56,19 @@
     <section id="placements" class="section">
         <div class="container">
             <h2>Available Ad Placements</h2>
-            <p class="section-subtitle">Browse our inventory and click <strong>Add to Campaign</strong> to start building your plan.</p>
+            <p class="section-subtitle">Browse our 2026 media kit inventory. Click <strong>Add to Campaign</strong> to start building your plan.</p>
 
             <div class="filter-bar">
                 <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="display">Display</button>
-                <button class="filter-btn" data-filter="sponsored">Sponsored Content</button>
-                <button class="filter-btn" data-filter="newsletter">Newsletter</button>
-                <button class="filter-btn" data-filter="social">Social</button>
+                <button class="filter-btn" data-filter="print-ps">Photonics Spectra</button>
+                <button class="filter-btn" data-filter="print-bp">BioPhotonics</button>
+                <button class="filter-btn" data-filter="print-vs">Vision Spectra</button>
+                <button class="filter-btn" data-filter="newsletter">Newsletters</button>
+                <button class="filter-btn" data-filter="digital">Digital</button>
+                <button class="filter-btn" data-filter="webinar">Webinars</button>
+                <button class="filter-btn" data-filter="event">Events</button>
+                <button class="filter-btn" data-filter="content">Content &amp; Video</button>
+                <button class="filter-btn" data-filter="marketplace">Marketplace</button>
             </div>
 
             <div class="placements-grid" id="placementsGrid">
@@ -79,7 +108,7 @@
                             <thead>
                                 <tr>
                                     <th>Placement</th>
-                                    <th>Duration</th>
+                                    <th>Frequency</th>
                                     <th>Qty</th>
                                     <th class="text-right">Subtotal</th>
                                 </tr>
@@ -93,6 +122,7 @@
                                 </tr>
                             </tfoot>
                         </table>
+                        <p class="rate-note">All rates are net — 15% agency discount already applied. Final pricing confirmed upon review.</p>
                     </div>
                 </div>
 
@@ -113,16 +143,17 @@
                         </div>
                         <div class="form-group">
                             <label for="contactPhone">Phone</label>
-                            <input type="tel" id="contactPhone" placeholder="(555) 123-4567">
+                            <input type="tel" id="contactPhone" placeholder="+1 (555) 123-4567">
                         </div>
                         <div class="form-group">
                             <label for="contactNotes">Additional Notes</label>
-                            <textarea id="contactNotes" rows="3" placeholder="Any special requirements or questions..."></textarea>
+                            <textarea id="contactNotes" rows="3" placeholder="Any special requirements, target issues, or questions..."></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full" id="submitBtn" disabled>
                             Submit Campaign for Review
                         </button>
-                        <p class="form-hint">Our ad sales team will review your plan and follow up within 1 business day.</p>
+                        <p class="form-hint">Our ad sales team will review your plan and follow up within 1 business day.<br>
+                        Questions? Email <a href="mailto:advertising@photonics.com">advertising@photonics.com</a> or call +1 413-499-0514</p>
                     </form>
                 </div>
             </div>
@@ -141,8 +172,15 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 Photonics Media. All rights reserved. | <a href="#">Media Kit PDF</a> | <a href="#">Contact Sales</a></p>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-photonics">PHOTONICS</span><span class="logo-media">MEDIA</span>
+                <p>Laurin Publishing | P.O. Box 4949, Pittsfield, MA 01202-4949</p>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:advertising@photonics.com">advertising@photonics.com</a>
+                <span>+1 413-499-0514</span>
+            </div>
         </div>
     </footer>
 
