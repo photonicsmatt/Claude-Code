@@ -479,6 +479,14 @@ nav a:hover { color: var(--color-primary); }
     color: var(--color-text-light);
 }
 
+.discount-note {
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
 .placement-card .btn { align-self: stretch; text-align: center; }
 
 /* === Campaign Items === */

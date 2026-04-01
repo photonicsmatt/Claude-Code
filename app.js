@@ -558,20 +558,19 @@ function renderChannelSections(ch) {
                 .map(([k, v]) => `<span><strong>${escapeHtml(k)}:</strong> ${escapeHtml(String(v))}</span>`)
                 .join('');
             const prices = Object.values(p.pricing);
-            const minPrice = Math.min(...prices);
-            const maxPrice = Math.max(...prices);
-            let priceHtml;
-            if (prices.length > 1) {
-                priceHtml = `<span class="from-label">From </span>$${minPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
-            } else {
-                priceHtml = `$${maxPrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
-            }
+            const basePrice = p.pricing['1x'] || Object.values(p.pricing)[0];
+            const hasDiscount = Object.keys(p.pricing).length > 1;
+            const priceHtml = `$${basePrice.toLocaleString()} <span class="unit">/ ${escapeHtml(p.unit)}</span>`;
+            const discountNote = hasDiscount
+                ? `<div class="discount-note">Frequency discounts available</div>`
+                : '';
             return `
                 <div class="placement-card ${inCampaign ? 'added' : ''}">
                     <h3>${escapeHtml(p.name)}</h3>
                     <p class="description">${escapeHtml(p.description)}</p>
                     <div class="placement-specs">${specsHtml}</div>
                     <div class="placement-price">${priceHtml}</div>
+                    ${discountNote}
                     <button class="btn ${inCampaign ? 'btn-added' : 'btn-outline'}" onclick="togglePlacement('${p.id}')">
                         ${inCampaign ? 'Added to Campaign' : 'Add to Campaign'}
                     </button>
